@@ -1,0 +1,4 @@
+fastapi[all]==0.140.13
+alembic==1.18.5
+pwdlib[argon2]
+python-jose[cryptography]
