@@ -1,0 +1,31 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: en\n"
+
+msgid "username_exists"
+msgstr "Username already exists"
+
+msgid "user_registered"
+msgstr "User registered successfully"
+
+msgid "incorrect_credentials"
+msgstr "Incorrect username or password"
+
+msgid "login_successful"
+msgstr "Login successful"
+
+msgid "refresh_token_not_found"
+msgstr "Refresh token not found"
+
+msgid "user_not_found"
+msgstr "User not found"
+
+msgid "access_token_refreshed"
+msgstr "Access token refreshed"
+
+msgid "logout_successful"
+msgstr "Logout successful"
+
+msgid "cost_not_found"
+msgstr "Cost not found"

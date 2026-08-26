@@ -1,0 +1,31 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fa\n"
+
+msgid "username_exists"
+msgstr "این نام کاربری قبلاً وجود دارد"
+
+msgid "user_registered"
+msgstr "کاربر با موفقیت ثبت نام شد"
+
+msgid "incorrect_credentials"
+msgstr "نام کاربری یا رمز عبور اشتباه است"
+
+msgid "login_successful"
+msgstr "ورود با موفقیت انجام شد"
+
+msgid "refresh_token_not_found"
+msgstr "رفرش توکن پیدا نشد"
+
+msgid "user_not_found"
+msgstr "کاربر پیدا نشد"
+
+msgid "access_token_refreshed"
+msgstr "Access Token با موفقیت تمدید شد"
+
+msgid "logout_successful"
+msgstr "با موفقیت خارج شدید"
+
+msgid "cost_not_found"
+msgstr "هزینه پیدا نشد"

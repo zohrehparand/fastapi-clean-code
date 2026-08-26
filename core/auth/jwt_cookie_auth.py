@@ -1,24 +1,15 @@
 from fastapi import Cookie, Response
-from datetime import datetime, timedelta
 
-def get_access_token_cookie(
-    access_token: str | None = Cookie(default=None)
-):
+
+def get_access_token_cookie(access_token: str | None = Cookie(default=None)):
     return access_token
 
 
-def get_refresh_token_cookie(
-    refresh_token: str | None = Cookie(default=None)
-):
+def get_refresh_token_cookie(refresh_token: str | None = Cookie(default=None)):
     return refresh_token
 
 
-def set_auth_cookies(
-    response: Response,
-    access_token: str,
-    refresh_token: str
-):
-    expires = datetime.utcnow() + timedelta(days=7)
+def set_auth_cookies(response: Response, access_token: str, refresh_token: str):
     response.set_cookie(
         key="access_token",
         value=access_token,

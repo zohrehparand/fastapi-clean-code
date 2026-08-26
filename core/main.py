@@ -5,13 +5,11 @@ from core.auth.jwtauth import get_authenticated_user
 from core.costs.routes import router as costs_router
 from core.user.model import UserModel
 from core.user.routes import router as auth_router
+from core.app.language import get_language
 
-tags_metada=[
-    {
-        "name":"costs",
-        "description":"cost management"
-    }
-]
+
+tags_metada = [{"name": "costs", "description": "cost management"}]
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -23,6 +21,7 @@ async def lifespan(app: FastAPI):
 
     print("Application shutdown")
 
+
 app = FastAPI(
     title="Simple Cost Manager App",
     version="1.0.0",
@@ -32,6 +31,11 @@ app = FastAPI(
 
 app.include_router(auth_router)
 app.include_router(costs_router)
+
+
+@app.get("/language")
+def get_selected_language(language: str = Depends(get_language)):
+    return {"language": language}
 
 
 @app.get("/private")

@@ -5,13 +5,20 @@ from core.auth.jwtauth import get_authenticated_user
 from core.costs.model import CostModel
 from core.costs.schema import CostSchema, CostResponseSchema
 from core.user.model import UserModel
-
+from core.app.language import get_language
+from core.app.translator import translate
 
 router = APIRouter(tags=["Costs"], prefix="/manage")
 
 
-@router.post("/costs", response_model=CostResponseSchema, status_code=status.HTTP_201_CREATED)
-def create(cost_data: CostSchema, current_user: UserModel = Depends(get_authenticated_user), db: Session = Depends(get_db)):
+@router.post(
+    "/costs", response_model=CostResponseSchema, status_code=status.HTTP_201_CREATED
+)
+def create(
+    cost_data: CostSchema,
+    current_user: UserModel = Depends(get_authenticated_user),
+    db: Session = Depends(get_db),
+):
     new_obj = CostModel(
         user_id=current_user.id,
         description=cost_data.description,
@@ -44,18 +51,41 @@ def get_list(
 
 
 @router.get("/costs/{id}", response_model=CostResponseSchema)
-def search(id: int, current_user: UserModel = Depends(get_authenticated_user), db: Session = Depends(get_db)):
-    db_cost = db.query(CostModel).filter(CostModel.id == id, CostModel.user_id == current_user.id).first()
+def search(
+    id: int,
+    current_user: UserModel = Depends(get_authenticated_user),
+    db: Session = Depends(get_db),
+    language: str = Depends(get_language),
+):
+    db_cost = (
+        db.query(CostModel)
+        .filter(CostModel.id == id, CostModel.user_id == current_user.id)
+        .first()
+    )
     if db_cost is None:
-        raise HTTPException(status_code=404, detail="Cost not found")
+        raise HTTPException(
+            status_code=404, detail=translate("cost_not_found", language)
+        )
     return db_cost
 
 
 @router.put("/costs/{id}", response_model=CostResponseSchema)
-def update(id: int, cost_data: CostSchema, current_user: UserModel = Depends(get_authenticated_user), db: Session = Depends(get_db)):
-    query = db.query(CostModel).filter(CostModel.id == id, CostModel.user_id == current_user.id).first()
+def update(
+    id: int,
+    cost_data: CostSchema,
+    current_user: UserModel = Depends(get_authenticated_user),
+    db: Session = Depends(get_db),
+    language: str = Depends(get_language),
+):
+    query = (
+        db.query(CostModel)
+        .filter(CostModel.id == id, CostModel.user_id == current_user.id)
+        .first()
+    )
     if query is None:
-        raise HTTPException(status_code=404, detail="Cost not found")
+        raise HTTPException(
+            status_code=404, detail=translate("cost_not_found", language)
+        )
 
     query.description = cost_data.description
     query.amount = cost_data.amount
@@ -65,10 +95,21 @@ def update(id: int, cost_data: CostSchema, current_user: UserModel = Depends(get
 
 
 @router.delete("/costs/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete(id: int, current_user: UserModel   = Depends(get_authenticated_user), db: Session = Depends(get_db)):
-    query = db.query(CostModel).filter(CostModel.id == id, CostModel.user_id == current_user.id).first()
+def delete(
+    id: int,
+    current_user: UserModel = Depends(get_authenticated_user),
+    db: Session = Depends(get_db),
+    language: str = Depends(get_language),
+):
+    query = (
+        db.query(CostModel)
+        .filter(CostModel.id == id, CostModel.user_id == current_user.id)
+        .first()
+    )
     if query is None:
-        raise HTTPException(status_code=404, detail="Cost not found")
+        raise HTTPException(
+            status_code=404, detail=translate("cost_not_found", language)
+        )
 
     db.delete(query)
     db.commit()
